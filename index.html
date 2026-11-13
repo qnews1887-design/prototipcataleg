@@ -677,7 +677,7 @@ function shape(cut,cx,cy,r,fill){
   }
 }
 const LIVE360=true;/*LIVE*/
-const imgTag=p=>p.photo?`<img src="${p.photo}" alt="${esc(p.ref)}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply">`:p.img?`<img src="${esc(p.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#F5F6F7">`:'';
+const imgTag=p=>p.photo?`<img src="${p.photo}" alt="${esc(p.ref)}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply">`:p.img?`<img src="${esc(p.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="if(this.src.indexOf('width=1024')>-1){this.src=this.src.replace('width=1024&height=1024','width=512&height=512').replace('width=512&height=512&','width=512&height=512&')}else if(this.src.indexOf('width=512')>-1){this.src=this.src.replace('width=512&height=512','width=256&height=256')}else{this.remove()}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#F5F6F7">`:'';
 const frame360=p=>LIVE360&&p.slug?`<iframe title="${esc(p.ref)}" allow="camera; autoplay; clipboard-write; fullscreen; xr-spatial-tracking; web-share" allowfullscreen referrerpolicy="no-referrer-when-downgrade" onload="this.style.opacity=1;var l=this.parentNode.querySelector('.loading360');if(l)l.remove()" style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#F5F6F7;opacity:0;transition:opacity .4s ease" src="${embedUrl(p.slug)}"></iframe>`:'';
 function art(p){
   if(p.photo)return'';
@@ -982,7 +982,7 @@ function openForm(id){
   <div class="acts"><button class="btn btn-primary" id="fSave">${esc(t('save'))}</button><button class="btn btn-inverse" data-close>${esc(t('cancel'))}</button></div></div>`;
   check360();
 }
-const EMB_PARAMS='isAutoplay=true&isConfigurator=false&isShare=false&isPlayCameraViews=false&isFitObject=false';
+const EMB_PARAMS='isRemoveLogo=true&isRemoveLogoLink=true&isTurntableAnimation=true&isAutoplay=true&isTransparentBackground=true';
 const embedUrl=slug=>`https://ijewel.design/embedded?slug=${encodeURIComponent(slug)}&${EMB_PARAMS}`;
 function parse360(code){
   code=(code||'').trim();if(!code)return{ok:false,empty:true};
